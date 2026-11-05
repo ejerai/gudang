@@ -33,6 +33,32 @@ class BarangController extends Controller
         return view('barang.index', compact('barang', 'kategori', 'search', 'kategoriId'));
     }
 
+    // Pencarian cepat (JSON): dipakai pemilih barang di form mutasi stok
+    public function cari(Request $request)
+    {
+        $q = trim((string) $request->query('q', ''));
+
+        $hasil = Barang::with('kategori')
+            ->when($q !== '', function ($query) use ($q) {
+                $query->where(function ($w) use ($q) {
+                    $w->where('nama_barang', 'like', "%{$q}%")
+                      ->orWhere('kode_barang', 'like', "%{$q}%");
+                });
+            })
+            ->orderBy('nama_barang')
+            ->limit(8)
+            ->get()
+            ->map(fn (Barang $b) => [
+                'id'       => $b->id,
+                'kode'     => $b->kode_barang,
+                'nama'     => $b->nama_barang,
+                'stok'     => $b->stok,
+                'kategori' => $b->kategori?->nama_kategori,
+            ]);
+
+        return response()->json($hasil);
+    }
+
     public function create()
     {
         return view('barang.create', [

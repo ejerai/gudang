@@ -72,7 +72,7 @@
         </div>
     </div>
 
-    <div class="card flush">
+    <div class="card flush" id="stok-menipis">
         <div class="card-pad">
             <h2>Stok menipis</h2>
             <p class="hint" style="margin:-8px 0 12px">Barang dengan stok {{ $batas }} atau kurang. Segera hubungi supplier untuk pengisian ulang.</p>

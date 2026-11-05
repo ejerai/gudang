@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class LaporanController extends Controller
 {
     // Barang dengan stok di bawah atau sama dengan angka ini dianggap menipis
-    private const BATAS_STOK_MENIPIS = 10;
+    public const BATAS_STOK_MENIPIS = 10;
 
     public function index(Request $request)
     {

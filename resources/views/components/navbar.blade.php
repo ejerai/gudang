@@ -1,30 +1,29 @@
 @php
+    // Topbar: tanggal, pencarian barang global, dan lonceng stok menipis
+    $batasMenipis = \App\Http\Controllers\LaporanController::BATAS_STOK_MENIPIS;
     try {
-        \Illuminate\Support\Facades\DB::connection()->getPdo();
-        $online = true;
+        $jumlahMenipis = \App\Models\Barang::where('stok', '<=', $batasMenipis)->count();
     } catch (\Throwable $e) {
-        $online = false;
+        $jumlahMenipis = 0;
     }
-    $user = auth()->user();
+    $isManager = auth()->user()?->role === 'manager';
+    $tujuanBel = $isManager ? route('admin.laporan.index') . '#stok-menipis' : route('admin.barang.index');
 @endphp
-<header class="navbar">
-    <a class="brand" href="{{ route('dashboard') }}">
-        <span class="brand-mark">G</span>
-        GudangSmart
-    </a>
-    <div class="navbar-right">
-        <span class="status {{ $online ? 'status-on' : 'status-off' }}">
-            <i></i>{{ $online ? 'Sistem terhubung' : 'Koneksi terputus' }}
-        </span>
-        @if ($user)
-            <span class="user">
-                <strong>{{ $user->name }}</strong>
-                <small>{{ $user->role === 'manager' ? 'Manager Gudang' : 'Staff Gudang' }}</small>
-            </span>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="btn btn-ghost btn-sm">Keluar</button>
-            </form>
-        @endif
+<header class="topbar">
+    <button type="button" class="icon-btn menu-btn" data-nav-toggle aria-label="Buka atau tutup menu"><x-icon name="menu" /></button>
+    <div class="crumb">
+        <i class="live"></i>
+        <strong>{{ now()->locale('id')->translatedFormat('l, j M') }}</strong>
+        <span>@yield('title')</span>
+    </div>
+    <div class="topbar-right">
+        <form method="GET" action="{{ route('admin.barang.index') }}" class="search" role="search">
+            <x-icon name="search" />
+            <input type="search" name="q" placeholder="Cari barang" aria-label="Cari barang">
+        </form>
+        <a href="{{ $tujuanBel }}" class="bell" aria-label="Stok menipis: {{ $jumlahMenipis }} barang" title="{{ $jumlahMenipis }} barang stok menipis">
+            <x-icon name="bell" />
+            @if ($jumlahMenipis > 0)<b>{{ $jumlahMenipis > 99 ? '99+' : $jumlahMenipis }}</b>@endif
+        </a>
     </div>
 </header>

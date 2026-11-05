@@ -18,11 +18,13 @@ class MutasiStokController extends Controller
         return view('mutasi.index', compact('mutasi'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        $barang = Barang::orderBy('nama_barang')->get(['id', 'kode_barang', 'nama_barang', 'stok']);
+        // Barang yang sudah terpilih (setelah gagal validasi, atau lewat ?barang_id=)
+        $idTerpilih = old('barang_id', $request->query('barang_id'));
+        $terpilih = $idTerpilih ? Barang::with('kategori')->find($idTerpilih) : null;
 
-        return view('mutasi.create', compact('barang'));
+        return view('mutasi.create', compact('terpilih'));
     }
 
     public function store(Request $request)

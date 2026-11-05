@@ -4,13 +4,15 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriBarangController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\MutasiStokController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn () => redirect()->route('dashboard'));
+// Halaman depan (landing page)
+Route::get('/', LandingController::class)->name('landing');
 
 // Hanya untuk tamu (belum login)
 Route::middleware('guest')->group(function () {
@@ -36,6 +38,9 @@ Route::middleware('auth')->group(function () use ($semuaPeran, $hanyaManager) {
 
         // Manager + Staff: melihat data & mencatat mutasi stok
         Route::middleware($semuaPeran)->group(function () {
+            // Pencarian barang (JSON) untuk form mutasi stok
+            Route::get('barang/cari', [BarangController::class, 'cari'])->name('barang.cari');
+
             Route::resource('suppliers', SupplierController::class)->only(['index']);
             Route::resource('barang', BarangController::class)->only(['index']);
             Route::resource('kategori', KategoriBarangController::class)->only(['index']);
