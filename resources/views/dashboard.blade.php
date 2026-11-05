@@ -5,7 +5,6 @@
 @section('content')
     @php
         $isManager = auth()->user()->role === 'manager';
-        $persenAman = $totalJenisBarang > 0 ? round($stokAman / $totalJenisBarang * 100) : 100;
         $totalGerak = collect($grafik)->sum(fn ($g) => $g['masuk'] + $g['keluar']);
         // Tampilkan label sumbu-x secukupnya agar tidak berdesakan
         $langkah = $rentang <= 7 ? 1 : ($rentang <= 14 ? 1 : 3);
@@ -33,10 +32,6 @@
         <div class="stat primary">
             <span>Total Stok Fisik Gudang</span>
             <strong>{{ number_format($totalStok, 0, ',', '.') }}</strong>
-        </div>
-        <div class="stat warn">
-            <span>Stok Menipis</span>
-            <strong>{{ number_format($stokMenipis, 0, ',', '.') }}</strong>
         </div>
     </div>
 
@@ -71,26 +66,6 @@
             <div class="legend">
                 <span><i style="background: var(--primary)"></i>Barang Masuk</span>
                 <span><i style="background: var(--green)"></i>Barang Keluar</span>
-            </div>
-        </div>
-    </section>
-
-    {{-- Kondisi stok --}}
-    <section class="panel">
-        <div class="panel-head">
-            <h2>Kondisi Stok</h2>
-            <div class="actions">
-                <a href="{{ route('admin.barang.index') }}" class="btn btn-ghost btn-sm">Katalog barang</a>
-                @if ($isManager)
-                    <a href="{{ route('admin.laporan.index') }}#stok-menipis" class="btn btn-ghost btn-sm">Lihat stok menipis</a>
-                @endif
-            </div>
-        </div>
-        <div class="panel-body">
-            <div class="meter" role="progressbar" aria-valuenow="{{ $persenAman }}" aria-valuemin="0" aria-valuemax="100"><i style="width: {{ $persenAman }}%"></i></div>
-            <div class="meter-meta">
-                <span><b>{{ number_format($stokAman, 0, ',', '.') }}</b> / {{ number_format($totalJenisBarang, 0, ',', '.') }} jenis barang stok aman</span>
-                <span>{{ number_format($stokMenipis, 0, ',', '.') }} perlu diisi ulang (stok ≤ {{ $batas }})</span>
             </div>
         </div>
     </section>

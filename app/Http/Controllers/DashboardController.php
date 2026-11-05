@@ -38,16 +38,10 @@ class DashboardController extends Controller
         }
         $puncak = max(1, collect($grafik)->flatMap(fn ($g) => [$g['masuk'], $g['keluar']])->max());
 
-        $totalJenisBarang = Barang::count();
-        $stokMenipis = Barang::where('stok', '<=', LaporanController::BATAS_STOK_MENIPIS)->count();
-
         return view('dashboard', [
             'totalSupplier'    => Supplier::count(),
-            'totalJenisBarang' => $totalJenisBarang,
+            'totalJenisBarang' => Barang::count(),
             'totalStok'        => (int) Barang::sum('stok'),
-            'stokMenipis'      => $stokMenipis,
-            'stokAman'         => max($totalJenisBarang - $stokMenipis, 0),
-            'batas'            => LaporanController::BATAS_STOK_MENIPIS,
             'mutasiTerakhir'   => MutasiStok::with(['barang', 'user'])->latest()->limit(5)->get(),
             'rentang'          => $rentang,
             'grafik'           => $grafik,

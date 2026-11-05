@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
         Supplier::factory()->count(10)->create();
         Barang::factory()->count(20)->create();
 
-        // Contoh riwayat mutasi 14 hari terakhir (hapus baris ini jika tidak diperlukan)
+        // Contoh riwayat mutasi 30 hari terakhir (hapus baris ini jika tidak diperlukan)
         $this->call(MutasiContohSeeder::class);
     }
 }

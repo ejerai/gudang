@@ -6,14 +6,11 @@
     try {
         $totalBarang = \App\Models\Barang::count();
         $totalSupplier = \App\Models\Supplier::count();
-        $menipis = \App\Models\Barang::where('stok', '<=', $batas)->count();
         $daftarMenipis = \App\Models\Barang::where('stok', '<=', $batas)->orderBy('stok')->orderBy('nama_barang')->limit(3)->get(['id', 'nama_barang', 'stok']);
     } catch (\Throwable $e) {
-        $totalBarang = $totalSupplier = $menipis = 0;
+        $totalBarang = $totalSupplier = 0;
         $daftarMenipis = collect();
     }
-    $aman = max($totalBarang - $menipis, 0);
-    $persenAman = $totalBarang > 0 ? round($aman / $totalBarang * 100) : 100;
     $inisial = collect(explode(' ', trim($user?->name ?? 'U')))->filter()->take(2)->map(fn ($k) => mb_strtoupper(mb_substr($k, 0, 1)))->implode('');
 @endphp
 <aside class="sidebar" id="sidebar" aria-label="Navigasi utama">
@@ -52,13 +49,6 @@
     </nav>
 
     <div class="side-bottom">
-        <div class="health">
-            <div class="ring" style="--p: {{ $persenAman }}"></div>
-            <div><strong>{{ $aman }}</strong>/{{ $totalBarang }} barang stok aman</div>
-            <div class="sub">Menipis jika stok ≤ {{ $batas }}</div>
-            <a class="btn-dark" href="{{ $isManager ? route('admin.laporan.index') : route('admin.barang.index') }}">{{ $isManager ? 'Lihat laporan' : 'Lihat katalog' }}</a>
-        </div>
-
         @if ($user)
             <div class="profile">
                 <span class="avatar">{{ $inisial }}</span>
