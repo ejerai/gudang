@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Masuk - GudangSmart</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('img/logo.svg') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="{{ asset('css/gudangsmart.css') }}">
 </head>
 <body>
@@ -32,7 +29,6 @@
                 <x-form-input name="password" label="Password" type="password" placeholder="Masukkan password" autocomplete="current-password" required />
                 <button type="submit" class="btn btn-primary">Masuk</button>
             </form>
-            <a href="{{ route('landing') }}" class="auth-back">&larr; Kembali ke halaman depan</a>
         </div>
     </div>
 </body>

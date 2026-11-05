@@ -1,16 +1,6 @@
 @php
     $user = auth()->user();
     $isManager = $user?->role === 'manager';
-    $batas = \App\Http\Controllers\LaporanController::BATAS_STOK_MENIPIS;
-
-    try {
-        $totalBarang = \App\Models\Barang::count();
-        $totalSupplier = \App\Models\Supplier::count();
-        $daftarMenipis = \App\Models\Barang::where('stok', '<=', $batas)->orderBy('stok')->orderBy('nama_barang')->limit(3)->get(['id', 'nama_barang', 'stok']);
-    } catch (\Throwable $e) {
-        $totalBarang = $totalSupplier = 0;
-        $daftarMenipis = collect();
-    }
     $inisial = collect(explode(' ', trim($user?->name ?? 'U')))->filter()->take(2)->map(fn ($k) => mb_strtoupper(mb_substr($k, 0, 1)))->implode('');
 @endphp
 <aside class="sidebar" id="sidebar" aria-label="Navigasi utama">
@@ -25,11 +15,11 @@
     <nav class="side-nav">
         <div class="nav-label">Ruang kerja</div>
         <a class="nav-item @if(request()->routeIs('dashboard')) active @endif" href="{{ route('dashboard') }}"><x-icon name="dashboard" />Dashboard</a>
-        <a class="nav-item @if(request()->routeIs('admin.barang.*') && ! request()->routeIs('admin.barang.trash')) active @endif" href="{{ route('admin.barang.index') }}"><x-icon name="box" />Katalog Barang<span class="nav-count">{{ $totalBarang }}</span></a>
+        <a class="nav-item @if(request()->routeIs('admin.barang.*') && ! request()->routeIs('admin.barang.trash')) active @endif" href="{{ route('admin.barang.index') }}"><x-icon name="box" />Katalog Barang</a>
         <a class="nav-item @if(request()->routeIs('admin.mutasi.*')) active @endif" href="{{ route('admin.mutasi.index') }}"><x-icon name="swap" />Mutasi Stok</a>
 
         <div class="nav-label">Data master</div>
-        <a class="nav-item @if(request()->routeIs('admin.suppliers.*')) active @endif" href="{{ route('admin.suppliers.index') }}"><x-icon name="truck" />Supplier<span class="nav-count">{{ $totalSupplier }}</span></a>
+        <a class="nav-item @if(request()->routeIs('admin.suppliers.*')) active @endif" href="{{ route('admin.suppliers.index') }}"><x-icon name="truck" />Supplier</a>
         <a class="nav-item @if(request()->routeIs('admin.kategori.*')) active @endif" href="{{ route('admin.kategori.index') }}"><x-icon name="tag" />Kategori Barang</a>
 
         @if ($isManager)
@@ -38,14 +28,6 @@
             <a class="nav-item @if(request()->routeIs('admin.barang.trash')) active @endif" href="{{ route('admin.barang.trash') }}"><x-icon name="trash" />Barang Terhapus</a>
         @endif
 
-        @if ($daftarMenipis->isNotEmpty())
-            <div class="nav-label">Perlu diisi ulang</div>
-            @foreach ($daftarMenipis as $b)
-                <a class="nav-item" href="{{ route('admin.barang.index', ['q' => $b->nama_barang]) }}">
-                    <i class="dot {{ $b->stok === 0 ? 'red' : '' }}"></i><span class="nm">{{ $b->nama_barang }}</span><span class="qty">{{ $b->stok }}</span>
-                </a>
-            @endforeach
-        @endif
     </nav>
 
     <div class="side-bottom">

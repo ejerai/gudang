@@ -24,7 +24,7 @@
   --radius-sm: 10px;
   --shadow: 0 1px 2px rgba(23, 23, 28, .04), 0 8px 24px rgba(23, 23, 28, .04);
   --side-w: 264px;
-  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -97,7 +97,9 @@ button { font-family: inherit; }
 .user { display: flex; flex-direction: column; line-height: 1.2; text-align: right; padding-left: 4px; }
 .user strong { font-weight: 500; }
 .user small { color: var(--muted); font-size: 12px; }
-.menu-btn { border: 1px solid var(--line); background: #fff; width: 38px; height: 38px; border-radius: 10px; }
+/* Ikon panel di topbar: hanya muncul saat sidebar tertutup (desktop) atau di layar kecil */
+.menu-btn { display: none; }
+.nav-hidden .menu-btn { display: grid; }
 .content { padding: 26px 28px 8px; width: 100%; max-width: 1280px; margin: 0 auto; flex: 1; }
 .footer { text-align: center; color: var(--muted); font-size: 12.5px; padding: 8px 20px 28px; }
 .scrim { display: none; }
@@ -250,6 +252,7 @@ td.actions-cell form { display: inline; }
 
 /* ===== Responsif ===== */
 @media (max-width: 960px) {
+  .menu-btn { display: grid; }
   .app { grid-template-columns: minmax(0, 1fr); }
   .nav-hidden .app { grid-template-columns: minmax(0, 1fr); }
   .sidebar { position: fixed; left: 0; top: 0; transform: translateX(-100%); visibility: hidden; box-shadow: 0 0 40px rgba(0, 0, 0, .15); }
@@ -264,7 +267,6 @@ td.actions-cell form { display: inline; }
   th, td { padding-left: 14px; padding-right: 14px; }
   h1 { font-size: 22px; }
 }
-@media (min-width: 961px) { .menu-btn.only-mobile { display: none; } }
 @media (max-width: 760px) { .status, .user small { display: none; } }
 @media (max-width: 520px) { .search { display: none; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

@@ -14,7 +14,7 @@
     $tujuanBel = $isManager ? route('admin.laporan.index') . '#stok-menipis' : route('admin.barang.index');
 @endphp
 <header class="topbar">
-    <button type="button" class="icon-btn menu-btn" data-nav-toggle aria-label="Buka atau tutup menu"><x-icon name="menu" /></button>
+    <button type="button" class="icon-btn menu-btn" data-nav-toggle aria-label="Buka menu"><x-icon name="panel" /></button>
     <div class="crumb">
         <i class="live"></i>
         <strong>{{ now()->locale('id')->translatedFormat('l, j M') }}</strong>
