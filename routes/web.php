@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriBarangController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\MutasiStokController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Middleware\CheckRole;
@@ -50,6 +51,9 @@ Route::middleware('auth')->group(function () use ($semuaPeran, $hanyaManager) {
             Route::resource('suppliers', SupplierController::class)->except(['index', 'show']);
             Route::resource('barang', BarangController::class)->except(['index', 'show']);
             Route::resource('kategori', KategoriBarangController::class)->only(['store']);
+
+            Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
+            Route::get('laporan/mutasi/csv', [LaporanController::class, 'exportMutasi'])->name('laporan.mutasi-csv');
         });
     });
 });

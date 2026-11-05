@@ -153,3 +153,14 @@ td.actions-cell form { display: inline; }
   h1 { font-size: 24px; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* Cetak laporan */
+@media print {
+  .navbar, .sidebar, .footer, .no-print { display: none !important; }
+  body { background: #fff; }
+  .shell { display: block; padding: 0; max-width: none; }
+  .card, .stat { box-shadow: none; border: 1px solid var(--line); break-inside: avoid; }
+  .stat.primary { background: #fff; color: var(--ink); }
+  .stat.primary span { color: var(--ink-2); }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+}

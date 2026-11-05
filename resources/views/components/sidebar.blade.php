@@ -10,6 +10,7 @@
         <a href="{{ route('admin.mutasi.index') }}" @class(['active' => request()->routeIs('admin.mutasi.*')])>Mutasi Stok</a>
         @if ($isManager)
             <div class="sep"></div>
+            <a href="{{ route('admin.laporan.index') }}" @class(['active' => request()->routeIs('admin.laporan.*')])>Laporan</a>
             <a href="{{ route('admin.barang.trash') }}" @class(['active' => request()->routeIs('admin.barang.trash')])>Barang Terhapus</a>
         @endif
     </nav>
