@@ -247,8 +247,8 @@ td.actions-cell form { display: inline; }
 .auth-card h1 { text-align: center; font-size: 22px; }
 .auth-card .lead { text-align: center; color: var(--ink-2); margin: 6px 0 22px; }
 .auth-card .btn { width: 100%; padding: 11px; margin-top: 6px; }
-.auth-back { display: block; text-align: center; margin-top: 18px; color: var(--ink-2); font-size: 13.5px; }
-.auth-back:hover { color: var(--ink); }
+.auth-note { margin-top: 18px; padding: 10px 14px; border-radius: 10px; background: var(--primary-soft); color: var(--primary-ink); font-size: 13px; text-align: center; }
+.auth-note code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 600; background: #fff; padding: 1px 7px; border-radius: 6px; }
 
 /* ===== Responsif ===== */
 @media (max-width: 960px) {

@@ -29,6 +29,7 @@
                 <x-form-input name="password" label="Password" type="password" placeholder="Masukkan password" autocomplete="current-password" required />
                 <button type="submit" class="btn btn-primary">Masuk</button>
             </form>
+            <p class="auth-note">Password: <code>password</code></p>
         </div>
     </div>
 </body>
