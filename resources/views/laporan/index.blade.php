@@ -8,10 +8,6 @@
             <h1>Laporan gudang</h1>
             <p>Periode mutasi: {{ $dari->format('d/m/Y') }} sampai {{ $sampai->format('d/m/Y') }}</p>
         </div>
-        <div class="actions no-print">
-            <a href="{{ route('admin.laporan.mutasi-csv', ['dari' => $dari->format('Y-m-d'), 'sampai' => $sampai->format('Y-m-d')]) }}" class="btn btn-ghost">Unduh CSV</a>
-            <button type="button" class="btn btn-primary" onclick="window.print()">Cetak laporan</button>
-        </div>
     </div>
 
     <form method="GET" action="{{ route('admin.laporan.index') }}" class="card no-print">

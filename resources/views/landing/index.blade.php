@@ -51,7 +51,14 @@
                     </div>
                     <div class="meter"><i class="low" style="width: 40%"></i><span><b>4 tersisa</b><em style="font-style:normal;color:#565968">40% dari batas</em></span></div>
                 </div>
-                <div class="ghost">Kabel Tembaga Grade 304</div>
+                <div class="mock next" aria-hidden="true">
+                    <div class="mock-head">
+                        <span class="ttl"><i>!</i>Segera dipesan</span>
+                        <span>Contoh tampilan</span>
+                    </div>
+                    <h3>Kabel Tembaga Grade 304</h3>
+                    <div class="line"><span class="ok">✓</span>Kategori Komponen Elektrik</div>
+                </div>
             </div>
         </div>
     </section>
