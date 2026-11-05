@@ -27,8 +27,8 @@ Folder ini adalah lapisan file yang ditimpa/ditambahkan ke proyek Laravel baru `
 | Manager Gudang | manager@gudangsmart.test |
 | Staff Gudang | staff@gudangsmart.test |
 
-PROJECT UTS - PEMOGRAMAN WEB TINGKAT MAHIR
-## Nomor 1 — Fondasi Proyek (MVC, Environment, Routing)
+## PROJECT UTS - PEMOGRAMAN WEB TINGKAT MAHIR
+Nomor 1 — Fondasi Proyek (MVC, Environment, Routing)
 
 ### 1. Alur Request–Response MVC pada Dashboard
 
